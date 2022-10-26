@@ -1,0 +1,45 @@
+import sys
+input = sys.stdin.readline
+CAMPUS_CNT = 5
+
+def findRoot(x):
+    global parent
+    if x == parent[x]:
+        return x
+    else:
+        parent[x] = findRoot(parent[x])
+        return parent[x];
+
+def union(x, y):
+    parentX = findRoot(x)
+    parentY = findRoot(y)
+    if parentX == parentY:
+        return;
+    if parentX < parentY:
+        parent[parentY] = parentX
+    else:
+        parent[parentX] = parentY
+
+N = int(input())
+edges = []
+parent = [i for i in range(CAMPUS_CNT+1)]
+for _ in range(N):
+    edges.append(list(map(int, input().split())))
+edges.sort(key = lambda x: x[2])
+
+result = 0
+cnt = 1
+for i in range(N):
+    x = edges[i][0]
+    y = edges[i][1]
+    cost = edges[i][2]
+    if findRoot(x) != findRoot(y):
+        union(x, y)
+        cnt += 1
+        result += cost
+
+if cnt != CAMPUS_CNT:
+    print(-7777777)
+else:
+    print(result)
+
