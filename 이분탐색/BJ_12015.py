@@ -1,3 +1,6 @@
+# https://www.acmicpc.net/problem/12015
+# 이분탐색, LIS
+
 import sys
 input = sys.stdin.readline
 
